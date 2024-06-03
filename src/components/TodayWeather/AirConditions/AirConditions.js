@@ -1,11 +1,10 @@
-import React from 'react';
-import ErrorBox from '../../Reusable/ErrorBox';
-import AirConditionsItem from './AirConditionsItem';
-import Layout from '../../Reusable/Layout';
+import React from "react";
+import ErrorBox from "../../Reusable/ErrorBox";
+import AirConditionsItem from "./AirConditionsItem";
+import Layout from "../../Reusable/Layout";
 
 const TodayWeatherAirConditions = ({ data }) => {
-  const noDataProvided =
-    !data || Object.keys(data).length === 0 || data.cod === '404';
+  const noDataProvided = !data || Object.keys(data).length === 0;
 
   let content = <ErrorBox flex="1" type="error" />;
 
@@ -13,24 +12,25 @@ const TodayWeatherAirConditions = ({ data }) => {
     content = (
       <>
         <AirConditionsItem
-          title="Real Feel"
-          value={`${Math.round(data.main.feels_like)} °C`}
+          title="Temperature"
+          value={`${data.temperature} °C`}
           type="temperature"
         />
         <AirConditionsItem
-          title="Wind"
-          value={`${data.wind.speed} m/s`}
-          type="wind"
-        />
-        <AirConditionsItem
-          title="Clouds"
-          value={`${Math.round(data.clouds.all)} %`}
-          type="clouds"
+          title="Pressure"
+          value={`${data.pressure} hPa`}
+          type="pressure"
         />
         <AirConditionsItem
           title="Humidity"
-          value={`${Math.round(data.main.humidity)} %`}
+          value={`${data.humidity} %`}
           type="humidity"
+        />
+        <AirConditionsItem title="Gas" value={`${data.gas} ppm`} type="gas" />
+        <AirConditionsItem
+          title="Reading Time"
+          value={`${data.reading_time}`}
+          type="time"
         />
       </>
     );
@@ -39,7 +39,7 @@ const TodayWeatherAirConditions = ({ data }) => {
       title="AIR CONDITIONS"
       content={content}
       mb="1rem"
-      sx={{ marginTop: '2.9rem' }}
+      sx={{ marginTop: "2.9rem" }}
     />
   );
 };

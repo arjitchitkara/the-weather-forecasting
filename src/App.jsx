@@ -1,21 +1,25 @@
+import { Box, Grid, SvgIcon, Typography } from '@mui/material';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
-import { Box, Container, Grid, Link, SvgIcon, Typography } from '@mui/material';
-import Search from './components/Search/Search';
-import WeeklyForecast from './components/WeeklyForecast/WeeklyForecast';
-import TodayWeather from './components/TodayWeather/TodayWeather';
+import './App.css';
 import { fetchWeatherData } from './api/OpenWeatherService';
-import { transformDateFormat } from './utilities/DatetimeUtils';
-import UTCDatetime from './components/Reusable/UTCDatetime';
-import LoadingBox from './components/Reusable/LoadingBox';
 import { ReactComponent as SplashIcon } from './assets/splash-icon.svg';
-import Logo from './assets/logo.png';
 import ErrorBox from './components/Reusable/ErrorBox';
+import LoadingBox from './components/Reusable/LoadingBox';
+import UTCDatetime from './components/Reusable/UTCDatetime';
+import Search from './components/Search/Search';
+import TodayWeather from './components/TodayWeather/TodayWeather';
+import WeeklyForecast from './components/WeeklyForecast/WeeklyForecast';
+import Footer from './components/layout/Footer';
+import Navbar from './components/layout/Navbar';
 import { ALL_DESCRIPTIONS } from './utilities/DateConstants';
-import GitHubIcon from '@mui/icons-material/GitHub';
+import { transformDateFormat } from './utilities/DatetimeUtils';
+
 import {
   getTodayForecastWeather,
   getWeekForecastWeather,
 } from './utilities/DataUtils';
+
 
 function App() {
   const [todayWeather, setTodayWeather] = useState(null);
@@ -23,7 +27,7 @@ function App() {
   const [weekForecast, setWeekForecast] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-
+  // var enteredData='kullu, IN';
   const searchChangeHandler = async (enteredData) => {
     const [latitude, longitude] = enteredData.value.split(' ');
 
@@ -94,6 +98,10 @@ function App() {
         cities!
       </Typography>
     </Box>
+
+
+
+
   );
 
   if (todayWeather && todayForecast && weekForecast) {
@@ -151,36 +159,35 @@ function App() {
   }
 
   return (
-    <Container
+
+    <>
+    <Box> <Navbar /></Box>
+   
+    <Box 
       sx={{
         maxWidth: { xs: '95%', sm: '80%', md: '1100px' },
         width: '100%',
         height: '100%',
-        margin: '0 auto',
+        margin: '20px auto',
         padding: '1rem 0 3rem',
-        marginBottom: '1rem',
+        // marginBottom: '1rem',
         borderRadius: {
           xs: 'none',
           sm: '0 0 1rem 1rem',
         },
+        flexGrow: '1',
+        marginTop: '4',
+        marginBottom: '4',
         boxShadow: {
           xs: 'none',
-          sm: 'rgba(0,0,0, 0.5) 0px 10px 15px -3px, rgba(0,0,0, 0.5) 0px 4px 6px -2px',
+          sm: 'rgba(255, 204, 255, 0.5) 12px 10px 15px 10px, rgba(255, 204, 255, 0.5) 12px 4px 10px 10px',
         },
       }}
+
     >
-      <Grid container columnSpacing={2}>
+      <Grid container columnSpacing={2} justify="space-around" spacing={3}  >
         <Grid item xs={12}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{
-              width: '100%',
-              marginBottom: '1rem',
-            }}
-          >
-            <Box
+            {/* <Box
               component="img"
               sx={{
                 height: { xs: '16px', sm: '22px', md: '26px' },
@@ -188,29 +195,95 @@ function App() {
               }}
               alt="logo"
               src={Logo}
-            />
+            /> */}
 
             <UTCDatetime />
-            <Link
-              href="https://github.com/Amin-Awinti"
-              target="_blank"
-              underline="none"
-              sx={{ display: 'flex' }}
-            >
-              <GitHubIcon
-                sx={{
-                  fontSize: { xs: '20px', sm: '22px', md: '26px' },
-                  color: 'white',
-                  '&:hover': { color: '#2d95bd' },
-                }}
-              />
-            </Link>
-          </Box>
           <Search onSearchChange={searchChangeHandler} />
         </Grid>
         {appContent}
+        
       </Grid>
-    </Container>
+    </Box>
+
+    
+    <Box>  <Typography
+        variant="h1"
+        component="h1"
+        sx={{
+          fontSize: { xs: '12px', sm: '14px' },
+          color: 'rgba(255,255,255, .85)',
+          fontFamily: 'Poppins',
+          textAlign: 'left',
+          margin: '2rem auto',
+          maxWidth: '80%',
+          lineHeight: '22px',
+        }}
+      >
+        <h1 className="greeting">
+        Your Comfort Zone Monitor: Room Temperature Dashboard:
+       </h1>
+      </Typography>
+      </Box>
+   
+    <Box 
+      sx={{
+        maxWidth: { xs: '95%', sm: '80%', md: '1100px' },
+        width: '100%',
+        height: '100%',
+        margin: '20px auto',
+        padding: '1rem 0 3rem',
+        // marginBottom: '1rem',
+        borderRadius: {
+          xs: 'none',
+          sm: '0 0 1rem 1rem',
+        },
+        flexGrow: '1',
+        marginTop: '4',
+        marginBottom: '4',
+        boxShadow: {
+          xs: 'none',
+          sm: 'rgba(255, 204, 255, 0.5) 12px 10px 15px 10px, rgba(255, 204, 255, 0.5) 12px 4px 10px 10px',
+        },
+      }}
+    >
+ 
+      <Grid container columnSpacing={2} justify="space-around" spacing={3}  >
+        <Grid item xs={12}>
+          {/* <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{
+              width: '100%',
+              marginBottom: '1rem',
+            }}
+          >*/}
+           
+            {/* <Box
+              component="img"
+              sx={{
+                height: { xs: '16px', sm: '22px', md: '26px' },
+                width: 'auto',
+              }}
+              alt="logo"
+              src={Logo}
+               <Box><GetSensorData /></Box>
+            /> */}
+              <Grid >
+             {/* <Item>Current Date & Time: </Item> */}
+            </Grid>
+            <Grid item xs="auto"> <UTCDatetime /></Grid>
+           
+          {/* <Search onSearchChange={searchChangeHandler} /> */}
+        </Grid>
+      
+        {appContent}
+        
+      </Grid>
+    </Box>
+    <Footer />
+    {/* <Box> <GetDataServer /> </Box> */}
+    </>
   );
 }
 
